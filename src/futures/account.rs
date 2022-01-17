@@ -10,7 +10,9 @@ use crate::rest_model::{OrderSide, TimeInForce};
 use crate::rest_model::{PairAndWindowQuery, PairQuery};
 use crate::util::*;
 
-use super::rest_model::{AccountBalance, CanceledOrder, ChangeLeverageResponse, OrderType, Position, Transaction};
+use super::rest_model::{
+    AccountBalance, AccountInfo, CanceledOrder, ChangeLeverageResponse, OrderType, Position, Transaction,
+};
 
 #[derive(Clone)]
 pub struct FuturesAccount {
@@ -214,6 +216,12 @@ impl FuturesAccount {
                 self.recv_window,
             )
             .await
+    }
+
+    pub async fn account_info(&self) -> Result<AccountInfo> {
+        let parameters = BTreeMap::new();
+        let request = build_signed_request(parameters, self.recv_window)?;
+        self.client.get_signed_d("/fapi/v2/account", request.as_str()).await
     }
 
     pub async fn account_balance(&self) -> Result<Vec<AccountBalance>> {

@@ -434,6 +434,17 @@ pub struct AccountBalance {
 
 #[derive(Debug, Serialize, Deserialize, Clone)]
 #[serde(rename_all = "camelCase")]
+pub struct AccountInfo {
+    #[serde(with = "string_or_float")]
+    pub total_wallet_balance: f64,
+    #[serde(with = "string_or_float")]
+    pub total_unrealized_profit: f64,
+    #[serde(with = "string_or_float")]
+    pub total_margin_balance: f64,
+}
+
+#[derive(Debug, Serialize, Deserialize, Clone)]
+#[serde(rename_all = "camelCase")]
 pub struct ChangeLeverageResponse {
     pub leverage: u8,
     #[serde(with = "string_or_float")]
