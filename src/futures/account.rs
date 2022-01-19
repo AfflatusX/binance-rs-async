@@ -147,7 +147,7 @@ impl FuturesAccount {
     }
 
     // Place a MARKET order - BUY
-    pub async fn market_buy<S, F>(&self, symbol: S, qty: F) -> Result<Transaction>
+    pub async fn market_buy<S, F>(&self, symbol: S, qty: F, close: Option<bool>) -> Result<Transaction>
     where
         S: Into<String>,
         F: Into<f64>,
@@ -162,7 +162,7 @@ impl FuturesAccount {
             reduce_only: None,
             price: None,
             stop_price: None,
-            close_position: None,
+            close_position: close,
             activation_price: None,
             callback_rate: None,
             working_type: None,
@@ -172,7 +172,7 @@ impl FuturesAccount {
     }
 
     // Place a MARKET order - SELL
-    pub async fn market_sell<S, F>(&self, symbol: S, qty: F) -> Result<Transaction>
+    pub async fn market_sell<S, F>(&self, symbol: S, qty: F, close: Option<bool>) -> Result<Transaction>
     where
         S: Into<String>,
         F: Into<f64>,
@@ -187,7 +187,7 @@ impl FuturesAccount {
             reduce_only: None,
             price: None,
             stop_price: None,
-            close_position: None,
+            close_position: close,
             activation_price: None,
             callback_rate: None,
             working_type: None,
