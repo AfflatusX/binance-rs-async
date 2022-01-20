@@ -495,7 +495,9 @@ pub enum OrderSide {
 
 /// By default, buy
 impl Default for OrderSide {
-    fn default() -> Self { Self::Buy }
+    fn default() -> Self {
+        Self::Buy
+    }
 }
 
 /// Order types, the following restrictions apply
@@ -522,7 +524,9 @@ pub enum OrderType {
 
 /// By default, use market orders
 impl Default for OrderType {
-    fn default() -> Self { Self::Market }
+    fn default() -> Self {
+        Self::Market
+    }
 }
 
 #[derive(Debug, Serialize, Deserialize, Clone)]
@@ -1186,7 +1190,7 @@ pub enum SymbolPermission {
 }
 
 /// Status of an order, this can typically change over time
-#[derive(Debug, Serialize, Deserialize, Clone)]
+#[derive(Debug, Serialize, Deserialize, Clone, PartialEq)]
 #[serde(rename_all = "SCREAMING_SNAKE_CASE")]
 pub enum OrderStatus {
     /// The order has been accepted by the engine.
