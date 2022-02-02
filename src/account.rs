@@ -10,6 +10,7 @@ static API_V3_OPEN_ORDERS: &str = "/api/v3/openOrders";
 static API_V3_ALL_ORDERS: &str = "/api/v3/allOrders";
 static API_V3_MYTRADES: &str = "/api/v3/myTrades";
 static API_V3_ORDER: &str = "/api/v3/order";
+static API_VIRTUAL_SUB_ACCOUNT: &str = "/sapi/v1/sub-account/virtualSubAccount";
 /// Endpoint for test orders.
 /// Orders issued to this endpoint are validated, but not sent into the matching engine.
 static API_V3_ORDER_TEST: &str = "/api/v3/order/test";
@@ -404,5 +405,20 @@ impl Account {
         let trade_history: Vec<TradeHistory> = from_str(data.as_str())?;
 
         Ok(trade_history)
+    }
+
+    pub async fn create_sub_account<S>(&self, label: S) -> Result<SubAccountCreationResp>
+    where
+        S: Into<String>,
+    {
+        let request = build_signed_request_p(
+            SubAccountCreationReq {
+                sub_account_string: label.into(),
+            },
+            self.recv_window,
+        )?;
+        let data = self.client.post_signed(API_VIRTUAL_SUB_ACCOUNT, &request).await?;
+        let resp: SubAccountCreationResp = from_str(data.as_str())?;
+        Ok(resp)
     }
 }

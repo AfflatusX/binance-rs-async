@@ -267,6 +267,18 @@ pub struct TestResponse {}
 
 #[derive(Debug, Serialize, Deserialize, Clone)]
 #[serde(rename_all = "camelCase")]
+pub struct SubAccountCreationResp {
+    pub email: String,
+}
+
+#[derive(Debug, Serialize, Deserialize, Clone)]
+#[serde(rename_all = "camelCase")]
+pub struct SubAccountCreationReq {
+    pub sub_account_string: String,
+}
+
+#[derive(Debug, Serialize, Deserialize, Clone)]
+#[serde(rename_all = "camelCase")]
 pub struct OrderBook {
     pub last_update_id: u64,
     pub bids: Vec<Bids>,
