@@ -273,6 +273,33 @@ pub struct SubAccountCreationResp {
 
 #[derive(Debug, Serialize, Deserialize, Clone)]
 #[serde(rename_all = "camelCase")]
+pub struct SubAccountInfo {
+    pub email: String,
+    pub is_freeze: bool,
+    pub create_time: u64,
+}
+
+#[derive(Debug, Serialize, Deserialize, Clone)]
+#[serde(rename_all = "camelCase")]
+pub struct ListSubAccountResp {
+    pub sub_accounts: Vec<SubAccountInfo>,
+}
+
+#[derive(Debug, Serialize, Deserialize, Clone)]
+#[serde(rename_all = "camelCase")]
+pub struct SubAccountSimpleRequest {
+    pub email: String,
+}
+
+#[derive(Debug, Serialize, Deserialize, Clone)]
+#[serde(rename_all = "camelCase")]
+pub struct EnableFuturesOnSubAccountResponse {
+    pub email: String,
+    pub is_futures_enabled: bool,
+}
+
+#[derive(Debug, Serialize, Deserialize, Clone)]
+#[serde(rename_all = "camelCase")]
 pub struct SubAccountCreationReq {
     pub sub_account_string: String,
 }

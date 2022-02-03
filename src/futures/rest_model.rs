@@ -449,7 +449,6 @@ pub struct AccountInfo {
     pub total_unrealized_profit: f64,
     #[serde(with = "string_or_float")]
     pub total_margin_balance: f64,
-    pub balances: Vec<AccountInfoBalance>,
 }
 
 #[derive(Debug, Serialize, Deserialize, Clone)]

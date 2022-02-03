@@ -23,6 +23,32 @@ pub enum WebsocketEvent {
     OrderUpdate(Box<OrderUpdate>),
     #[serde(alias = "listStatus")]
     ListOrderUpdate(Box<OrderListUpdate>),
+    #[serde(alias = "ORDER_TRADE_UPDATE")]
+    FuturesOrderUpdate(Box<FuturesOrderUpdate>),
+}
+
+#[derive(Debug, Serialize, Deserialize, Clone)]
+#[serde(rename_all = "camelCase")]
+pub struct FuturesOrderInfo {
+    #[serde(rename = "s")]
+    pub symbol: String,
+    #[serde(rename = "c")]
+    pub client_order_id: String,
+    #[serde(rename = "q")]
+    #[serde(with = "string_or_float")]
+    pub qty: f64,
+    #[serde(rename = "p")]
+    #[serde(with = "string_or_float")]
+    pub price: f64,
+    #[serde(rename = "X")]
+    pub order_status: OrderStatus,
+}
+
+#[derive(Debug, Serialize, Deserialize, Clone)]
+#[serde(rename_all = "camelCase")]
+pub struct FuturesOrderUpdate {
+    #[serde(rename = "o")]
+    pub order: FuturesOrderInfo,
 }
 
 #[derive(Serialize, Deserialize, Debug)]
