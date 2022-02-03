@@ -23,8 +23,6 @@ pub enum WebsocketEvent {
     OrderUpdate(Box<OrderUpdate>),
     #[serde(alias = "listStatus")]
     ListOrderUpdate(Box<OrderListUpdate>),
-    #[serde(alias = "ORDER_TRADE_UPDATE")]
-    FuturesOrderUpdate(Box<FuturesOrderUpdate>),
 }
 
 #[derive(Debug, Serialize, Deserialize, Clone)]
@@ -42,6 +40,15 @@ pub struct FuturesOrderInfo {
     pub price: f64,
     #[serde(rename = "X")]
     pub order_status: OrderStatus,
+}
+
+#[derive(Debug, Serialize, Deserialize, Clone)]
+#[serde(tag = "e")]
+pub enum FuturesWebsocketEvent {
+    #[serde(alias = "ACCOUNT_UPDATE")]
+    AccountUpdate,
+    #[serde(alias = "ORDER_TRADE_UPDATE")]
+    OrderUpdate(FuturesOrderUpdate),
 }
 
 #[derive(Debug, Serialize, Deserialize, Clone)]
