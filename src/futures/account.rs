@@ -11,7 +11,7 @@ use crate::rest_model::{PairAndWindowQuery, PairQuery};
 use crate::util::*;
 
 use super::rest_model::{
-    AccountBalance, AccountInfo, CanceledOrder, ChangeLeverageResponse, OrderType, Position, Transaction,
+    AccountBalance, AccountInfo, CanceledOrder, ChangeLeverageResponse, OpenOrder, OrderType, Position, Transaction,
 };
 
 #[derive(Clone)]
@@ -184,10 +184,10 @@ impl FuturesAccount {
             order_type: OrderType::Market,
             time_in_force: None,
             qty: Some(qty.into()),
-            reduce_only: None,
+            reduce_only: close,
             price: None,
             stop_price: None,
-            close_position: close,
+            close_position: None,
             activation_price: None,
             callback_rate: None,
             working_type: None,
@@ -251,6 +251,12 @@ impl FuturesAccount {
             )
             .await?;
         Ok(())
+    }
+
+    pub async fn all_open_orders(&self) -> Result<Vec<OpenOrder>> {
+        let parameters = BTreeMap::new();
+        let request = build_signed_request(parameters, self.recv_window)?;
+        self.client.get_signed_d("/fapi/v1/openOrders", request.as_str()).await
     }
 
     pub async fn cancel_all_open_orders<S>(&self, symbol: S) -> Result<()>

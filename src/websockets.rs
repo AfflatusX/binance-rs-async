@@ -136,7 +136,6 @@ impl<'a, WE: serde::de::DeserializeOwned> WebSockets<'a, WE> {
 
         match connect_async(url).await {
             Ok(answer) => {
-                println!("socket hand shake established");
                 self.socket = Some(answer);
                 Ok(())
             }
@@ -152,7 +151,6 @@ impl<'a, WE: serde::de::DeserializeOwned> WebSockets<'a, WE> {
         match connect_async(url).await {
             Ok(answer) => {
                 self.socket = Some(answer);
-                println!("socket hand shake established");
                 Ok(())
             }
             Err(e) => Err(Error::Msg(format!("Error during handshake {}", e))),

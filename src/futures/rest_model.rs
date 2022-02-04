@@ -318,6 +318,17 @@ pub struct OpenInterest {
 
 #[derive(Debug, Serialize, Deserialize, Clone)]
 #[serde(rename_all = "camelCase")]
+pub struct OpenOrder {
+    pub client_order_id: String,
+    pub order_id: u64,
+    pub side: String,
+    pub status: String,
+    pub symbol: String,
+    pub time_in_force: String,
+}
+
+#[derive(Debug, Serialize, Deserialize, Clone)]
+#[serde(rename_all = "camelCase")]
 pub struct Transaction {
     pub client_order_id: String,
     #[serde(with = "string_or_float")]
