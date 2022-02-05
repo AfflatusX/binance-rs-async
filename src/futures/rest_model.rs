@@ -325,6 +325,10 @@ pub struct OpenOrder {
     pub status: String,
     pub symbol: String,
     pub time_in_force: String,
+    #[serde(with = "string_or_float")]
+    pub avg_price: f64,
+    #[serde(with = "string_or_float")]
+    pub price: f64,
 }
 
 #[derive(Debug, Serialize, Deserialize, Clone)]
